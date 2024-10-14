@@ -1,0 +1,39 @@
+<mujoco model="simple box">
+    <visual>
+    <global offheight="2200" offwidth="3208"/>
+  </visual>
+
+    <option timestep="0.0005" cone="elliptic"/>
+
+    <default>
+        <general ctrllimited="true" ctrlrange="-1 1" gainprm="18"/>
+    </default>
+    
+    <worldbody>
+        <body name="box">
+            <camera name="top" mode="trackcom" fovy="80" pos="0 0 1" zaxis="0 0 1"/>
+            <light name="tracking_light" mode="trackcom" pos="0 0 3"/>
+            <camera name="side_alt" mode="trackcom" pos="0.7 -0.761 0.399" xyaxes="0.766 0.643 0 -0.162 0.192 0.968"/>
+            <joint name="slide_x" type="slide" damping="0.3" axis="1 0 0"/>
+            <joint name="slide_y" type="slide" damping="0.3" axis="0 1 0"/>
+            <joint name="slide_z" type="slide" damping="0.3" axis="0 0 1"/>
+            <joint name="hinge" type="hinge" damping="0.4" axis="0 0 1"/>
+            <site name="root"/>
+            <camera name="egocentric" pos="0 0 0.1" xyaxes="0 -1 0 0 0 1"/>
+            <geom name="torso" type="box" size=".07 .06 .02" rgba=".5 .7 .6 1"  mass=".7"/>
+            <geom name="head" type="sphere" pos=".07 0 0.02" size="0.02" rgba="0 1 1 1" mass="0"/>
+        </body>
+    </worldbody>
+    
+    <actuator>
+        <general name="forward" site="root" gainprm="17" gear="1 0 0 0 0 0"/>
+        <general name="rotate" site="root" gainprm="2" gear="0 0 0 0 0 1"/>
+    </actuator>
+
+    <sensor>
+        <accelerometer name="accelerometer" site="root"/>
+        <gyro name="gyro" site="root"/>
+        <velocimeter name="velocimeter" site="root"/>
+    </sensor>
+
+</mujoco>
